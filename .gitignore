@@ -1,3 +1,5 @@
 .idea
 *.class
 *.properties
+.gradle
+build
