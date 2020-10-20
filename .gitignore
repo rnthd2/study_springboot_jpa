@@ -1,5 +1,6 @@
 .idea
 *.class
 *.properties
-.gradle/
 build/
+.gradle
+.gradletasknamecache
