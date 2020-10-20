@@ -2,8 +2,6 @@ jpabook/jpashop/Hello.java
  jpabook.jpashop.Hello
 jpabook/jpashop/domain/item/Album.java
  jpabook.jpashop.domain.item.Album
-jpabook/jpashop/MemberRepository.java
- jpabook.jpashop.MemberRepository
 jpabook/jpashop/domain/DeliveryStatus.java
  jpabook.jpashop.domain.DeliveryStatus
 jpabook/jpashop/domain/item/Movie.java
@@ -28,5 +26,9 @@ jpabook/jpashop/domain/item/Item.java
  jpabook.jpashop.domain.item.Item
 jpabook/jpashop/domain/OrderItem.java
  jpabook.jpashop.domain.OrderItem
+jpabook/jpashop/repository/MemberRepository.java
+ jpabook.jpashop.repository.MemberRepository
+jpabook/jpashop/service/MemberService.java
+ jpabook.jpashop.service.MemberService
 jpabook/jpashop/HelloController.java
  jpabook.jpashop.HelloController

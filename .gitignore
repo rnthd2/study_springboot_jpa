@@ -3,4 +3,4 @@
 *.properties
 build/
 .gradle
-.gradletasknamecache 
+.gradletasknamecache
