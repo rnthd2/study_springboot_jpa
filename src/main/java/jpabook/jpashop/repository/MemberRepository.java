@@ -35,7 +35,7 @@ public class MemberRepository {
     public List<Member> findAll(){
         //sql은 table을 대상으로 쿼리하지만 아래 코드는 엔티티를 대상으로 쿼리한다
         //jpql 문법을사용하였다
-        return em.createQuery("selct m from Member m", Member.class).getResultList();
+        return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
     public List<Member> findName(String name){
