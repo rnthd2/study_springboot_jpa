@@ -14,6 +14,7 @@ spring:
 #        print out
 #        show_sql : true
         format_sql : true
+        default_batch_fetch_size : 100  #in query의 개수를 몇 개로 할건가?!
 
 logging :
   level :

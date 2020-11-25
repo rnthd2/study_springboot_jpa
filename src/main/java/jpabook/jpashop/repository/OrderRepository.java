@@ -99,11 +99,83 @@ public class OrderRepository {
     }
 
     //fetch join
-    public List<Order> findAllWithMemberDelivery() {
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
         return em.createQuery(
                 "select o from Order o"
                 + " join fetch o.member m "
-                + " join fetch o.delivery d", Order.class
+                + " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o"
+                        + " join fetch o.member m "
+                        + " join fetch o.delivery d", Order.class
         ).getResultList();
     }
+
+
+    //jpql 의 distinct 는? db의 distinct는 모든 데이터가 같았을 때 중복제거 하지만 jpa에서는 자체적으로 order(엔티티)가 같은 값이면 하나의 데이터는 버림
+    public List<Order>
+    findAllWithItem() {
+        return em.createQuery("select distinct o from Order o " +
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i", Order.class)
+                .setFirstResult(1)
+                .setMaxResults(100)
+                .getResultList();
+    }
+    /*distinct 전 --> distinct 후는 이터 하나 삭제 --> 이슈 없음
+    [
+    {
+        "orderId": 4,
+            "orderName": "userA",
+            "orderDate": "2020-11-20T19:01:42.310768",
+            "orderStatus": "ORDER",
+            "address": {
+        "city": "seoul",
+                "street": "1",
+                "zipcode": "1111"
+    },
+        "orderItems": [
+        {
+            "itemName": "JPA1 BOOK",
+                "orderPrice": 10000,
+                "count": 1
+        },
+        {
+            "itemName": "JPA2 BOOK",
+                "orderPrice": 20000,
+                "count": 2
+        }
+        ]
+    },
+    {
+        "orderId": 4,
+            "orderName": "userA",
+            "orderDate": "2020-11-20T19:01:42.310768",
+            "orderStatus": "ORDER",
+            "address": {
+        "city": "seoul",
+                "street": "1",
+                "zipcode": "1111"
+    },
+        "orderItems": [
+        {
+            "itemName": "JPA1 BOOK",
+                "orderPrice": 10000,
+                "count": 1
+        },
+        {
+            "itemName": "JPA2 BOOK",
+                "orderPrice": 20000,
+                "count": 2
+        }
+        ]
+    } ... */
 }

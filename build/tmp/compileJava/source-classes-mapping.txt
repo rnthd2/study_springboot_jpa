@@ -1,11 +1,19 @@
 jpabook/jpashop/controller/HomeController.java
  jpabook.jpashop.controller.HomeController
+jpabook/jpashop/repository/order/simplequery/OrderSimpleQueryDto.java
+ jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto
 jpabook/jpashop/Hello.java
  jpabook.jpashop.Hello
+jpabook/jpashop/exception/NotEnoughStockException.java
+ jpabook.jpashop.exception.NotEnoughStockException
 jpabook/jpashop/domain/item/Album.java
  jpabook.jpashop.domain.item.Album
+jpabook/jpashop/domain/item/Item.java
+ jpabook.jpashop.domain.item.Item
 jpabook/jpashop/domain/item/Movie.java
  jpabook.jpashop.domain.item.Movie
+jpabook/jpashop/repository/order/query/OrderItemQueryDto.java
+ jpabook.jpashop.repository.order.query.OrderItemQueryDto
 jpabook/jpashop/domain/Delivery.java
  jpabook.jpashop.domain.Delivery
 jpabook/jpashop/domain/Category.java
@@ -34,6 +42,8 @@ jpabook/jpashop/repository/ItemRepository.java
  jpabook.jpashop.repository.ItemRepository
 jpabook/jpashop/controller/OrderController.java
  jpabook.jpashop.controller.OrderController
+jpabook/jpashop/domain/Address.java
+ jpabook.jpashop.domain.Address
 jpabook/jpashop/controller/ItemController.java
  jpabook.jpashop.controller.ItemController
 jpabook/jpashop/domain/OrderItem.java
@@ -44,8 +54,6 @@ jpabook/jpashop/service/MemberService.java
  jpabook.jpashop.service.MemberService
 jpabook/jpashop/HelloController.java
  jpabook.jpashop.HelloController
-jpabook/jpashop/repository/OrderSimpleQueryDto.java
- jpabook.jpashop.repository.OrderSimpleQueryDto
 jpabook/jpashop/repository/OrderSearch.java
  jpabook.jpashop.repository.OrderSearch
 jpabook/jpashop/service/OrderService.java
@@ -56,6 +64,8 @@ jpabook/jpashop/JpashopApplication.java
  jpabook.jpashop.JpashopApplication
 jpabook/jpashop/domain/item/Book.java
  jpabook.jpashop.domain.item.Book
+jpabook/jpashop/repository/order/query/OrderFlatDto.java
+ jpabook.jpashop.repository.order.query.OrderFlatDto
 jpabook/jpashop/controller/BookForm.java
  jpabook.jpashop.controller.BookForm
 jpabook/jpashop/domain/OrderStatus.java
@@ -64,13 +74,17 @@ jpabook/jpashop/domain/Member.java
  jpabook.jpashop.domain.Member
 jpabook/jpashop/service/ItemService.java
  jpabook.jpashop.service.ItemService
+jpabook/jpashop/repository/order/simplequery/OrderSimpleQueryRepository.java
+ jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryRepository
 jpabook/jpashop/controller/MemberController.java
  jpabook.jpashop.controller.MemberController
 jpabook/jpashop/service/UpdatItemDto.java
  jpabook.jpashop.service.UpdatItemDto
-jpabook/jpashop/domain/Address.java
- jpabook.jpashop.domain.Address
-jpabook/jpashop/domain/item/Item.java
- jpabook.jpashop.domain.item.Item
-jpabook/jpashop/exception/NotEnoughStockException.java
- jpabook.jpashop.exception.NotEnoughStockException
+jpabook/jpashop/api/OrderApiController.java
+ jpabook.jpashop.api.OrderApiController
+ jpabook.jpashop.api.OrderApiController$OrderDto
+ jpabook.jpashop.api.OrderApiController$OrderItemDto
+jpabook/jpashop/repository/order/query/OrderQueryDto.java
+ jpabook.jpashop.repository.order.query.OrderQueryDto
+jpabook/jpashop/repository/order/query/OrderQueryRepository.java
+ jpabook.jpashop.repository.order.query.OrderQueryRepository

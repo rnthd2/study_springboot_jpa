@@ -29,6 +29,10 @@ public class OrderSimpleApiController {
     private final OrderRepository orderRepository;
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
+    /**
+     * 엔티티를 조회해서 그대로 반환 V1
+     * @return
+     */
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1(){
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
@@ -39,6 +43,10 @@ public class OrderSimpleApiController {
         return all;
     }
 
+    /**
+     * 엔티티 조회 후 DTO로 변환 V2
+     * @return
+     */
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2(){
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
@@ -51,6 +59,10 @@ public class OrderSimpleApiController {
         return result;
     }
 
+    /**
+     * 패치 조인으로 쿼리 수 최적화 V3
+     * @return
+     */
     @GetMapping("/api/v3/simple-orders")
     public List<SimpleOrderDto> ordersV3(){
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
