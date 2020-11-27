@@ -119,8 +119,7 @@ public class OrderRepository {
 
 
     //jpql 의 distinct 는? db의 distinct는 모든 데이터가 같았을 때 중복제거 하지만 jpa에서는 자체적으로 order(엔티티)가 같은 값이면 하나의 데이터는 버림
-    public List<Order>
-    findAllWithItem() {
+    public List<Order> findAllWithItem() {
         return em.createQuery("select distinct o from Order o " +
                 " join fetch o.member m" +
                 " join fetch o.delivery d" +
