@@ -44,7 +44,7 @@ public class MemberService {
     private void validateDuplicateMember(Member member){
         //아래 비즈니스 로직을 실무에서 돌릴때
         //멀티쓰레드인 경우 db충돌이 일어날 수 있기 때문에 member name 을 unique 할 필요가 있다
-        List<Member> findMembers = memberRepository.findName(member.getName());
+        List<Member> findMembers = memberRepository.findByName(member.getName());
 
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -63,16 +63,16 @@ public class MemberService {
     /**
      * 회원 단건 조회
      *
-     * @param id
+     * @param memberId
      * @return
      */
-    public Member findOne(Long id){
-        return memberRepository.findOne(id);
+    public Member findOne(Long memberId){
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
-    public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+    public void update(Long memberId, String name) {
+        Member member = memberRepository.findById(memberId).get();
         member.setName(name);
     }
 }
