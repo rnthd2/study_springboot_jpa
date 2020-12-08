@@ -1,7 +1,9 @@
 package jpabook.jpashop.service.query;
 
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,28 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderQueryService {
     private final OrderRepository orderRepository;
+
+    public List<Order> ordersV1(OrderSearch orderSearch){
+        List<Order> all = orderRepository.findAllByString(orderSearch);
+        for (Order order : all) {
+            order.getMember();
+            order.getDelivery().getAddress();
+
+            // orderItems과 orderItems 안의 정보를 강제 초기화 해줌
+            // hibernate5module로 기본 설정이 되어있고, LAZY설정이 되어있으면 뿌리질않아 강제 초기화로 조회하여 뿌릴 수 있도록 설정한다
+            // 양방향은 무조건 한쪽은 json ignore로 설정해야 한다
+            // 다른 예제들처럼 api entity를 직접 노출하지 말아야한다.... 이 예시를 사용하면 안된다
+            List<OrderItem> orderItems = order.getOrderItems();
+            orderItems.stream().forEach(o -> o.getItem().getName());
+        }
+        return all;
+    }
+
+    public List<OrderDto> ordersV2(OrderSearch orderSearch){
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        List<OrderDto> collect = orders.stream().map(o -> new OrderDto(o)).collect(Collectors.toList());
+        return collect;
+    }
 
     public List<OrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithItem();

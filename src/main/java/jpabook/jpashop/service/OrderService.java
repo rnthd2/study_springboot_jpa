@@ -9,11 +9,14 @@ import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.service.query.OrderDto;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -59,7 +62,7 @@ public class OrderService {
         Order order = orderRepository.findOne(orderId);
 
         //주문 취소
-        //자동 update...diry checking... 변경 내역 감
+        //자동 update...dirty checking... 변경 내역 감
         //order status update
         //order stockQuantity update
         order.cancel();

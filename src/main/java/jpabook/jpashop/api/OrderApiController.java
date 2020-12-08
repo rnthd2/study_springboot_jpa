@@ -10,6 +10,7 @@ import jpabook.jpashop.repository.order.query.OrderFlatDto;
 import jpabook.jpashop.repository.order.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryRepository;
+import jpabook.jpashop.service.OrderService;
 import jpabook.jpashop.service.query.OrderDto;
 import jpabook.jpashop.service.query.OrderQueryService;
 import lombok.Data;
@@ -34,6 +35,7 @@ import static java.util.stream.Collectors.*;
 public class OrderApiController {
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
+    private final OrderQueryService orderQueryService;
 
     /**
      * 엔티티를 조회해서 그대로 반환 V1
@@ -41,19 +43,7 @@ public class OrderApiController {
      */
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1(){
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
-        for (Order order : all) {
-            order.getMember();
-            order.getDelivery().getAddress();
-
-            // orderItems과 orderItems 안의 정보를 강제 초기화 해줌
-            // hibernate5module로 기본 설정이 되어있고, LAZY설정이 되어있으면 뿌리질않아 강제 초기화로 조회하여 뿌릴 수 있도록 설정한다
-            // 양방향은 무조건 한쪽은 json ignore로 설정해야 한다
-            // 다른 예제들처럼 api entity를 직접 노출하지 말아야한다.... 이 예시를 사용하면 안된다
-            List<OrderItem> orderItems = order.getOrderItems();
-            orderItems.stream().forEach(o -> o.getItem().getName());
-        }
-        return all;
+        return orderQueryService.ordersV1(new OrderSearch());
     }
 
     // JPA1 BOOK으로 모든 주문서가 있다면 한번만 db조회하고 영속성 컨텍스트로 가져오면 되는데 아니면 조회 쿼리가 너무 많다...
@@ -63,9 +53,7 @@ public class OrderApiController {
      */
     @GetMapping("/api/v2/orders")
     public List<OrderDto> ordersV2(){
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
-        List<OrderDto> collect = orders.stream().map(o -> new OrderDto(o)).collect(Collectors.toList());
-        return collect;
+        return orderQueryService.ordersV2(new OrderSearch());
     }
 
     // 여기서 join fetch 를 하는 순간 주문이 2개에 한 주문 당 아이템이 2개씩이니 4 row가 출력된다, 1:n인 경우 n만큼 출력된다 --> distinct!
@@ -84,8 +72,6 @@ public class OrderApiController {
      * 패치 조인으로 쿼리 수 최적화 V3
      * @return
      */
-    private final OrderQueryService orderQueryService;
-
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
         return orderQueryService.ordersV3();
