@@ -1,8 +1,14 @@
+buildscript {
+	dependencies{
+		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")	//query dsl 추가
+	}
+}
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
+apply plugin: "com.ewerk.gradle.plugins.querydsl"	//query dsl 추가
 
 group = 'jpabook'
 version = '0.0.1-SNAPSHOT'
@@ -32,7 +38,35 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	implementation'com.querydsl:querydsl-jpa'
+	implementation'com.querydsl:querydsl-apt'
 }
+
+//query dsl 추가 시작
+def querydslSrcDir = 'src/main/generated' // QClass 생성 위치
+
+querydsl {
+	library = "com.querydsl:querydsl-apt"
+	jpa = true
+	querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java', querydslSrcDir]
+		}
+	}
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+//query dsl 추가 끝
 
 test {
 	useJUnitPlatform()

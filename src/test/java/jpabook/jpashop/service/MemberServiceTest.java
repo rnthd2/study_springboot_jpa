@@ -43,7 +43,7 @@ class MemberServiceTest {
 
         //then
 //        em.flush(); //db에 실제 반영
-        assertEquals(member, memberRepository.findOne(saveId));
+        assertEquals(member, memberRepository.findById(saveId));
     }
 
     @Test

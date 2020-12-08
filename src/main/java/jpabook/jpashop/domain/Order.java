@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
+import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; //주문 회원
-//    private Member member = new ByteBuddyInterceptor(); 로 넣어놓고 db로 조회하고 프록시를 초기화
+//    private Member member = new ByteBuddyInterceptor();// 로 넣어놓고 db로 조회하고 프록시를 초기화
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();

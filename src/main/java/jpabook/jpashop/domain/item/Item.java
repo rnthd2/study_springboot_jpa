@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.item;
 
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,9 @@ public abstract class Item {
     @GeneratedValue
     @Column(name = "item_id")
     private Long id;
+
+//    @OneToMany(mappedBy = "id")
+//    private List<OrderItem> orderItems; //다대일 단방향임으로 없어도됨
 
     private String name;
 
